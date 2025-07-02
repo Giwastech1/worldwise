@@ -15,7 +15,6 @@ const formatDate = (date) =>
     month: "long",
     year: "numeric",
   }).format(new Date(date));
-
 function CityItem({ city }) {
   const { cityName, emoji, date } = city;
   return (
@@ -27,9 +26,9 @@ function CityItem({ city }) {
           style={{ width: '24px', marginRight: '8px' }}
         />
       </span>
-          <h3 className={styles.name}>{cityName}</h3>
-          <time className={styles.date}>({formatDate(date)})</time>
-          <button className={styles.deleteBtn}>&times;</button>
+      <h3 className={styles.name}>{cityName}</h3>
+      <time className={styles.date}>({formatDate(date)})</time>
+      <button className={styles.deleteBtn}>&times;</button>
     </li>
   );
 }
