@@ -18,8 +18,8 @@ function City() {
   };
 
   const { cityName, emoji, date, notes } = currentCity;
-
-  return (
+  return <h2>City</h2>
+ {/* return (
     <div className={styles.city}>
       <div className={styles.row}>
         <h6>City name</h6>
@@ -52,10 +52,12 @@ function City() {
       </div>
 
       <div>
-        <ButtonBack />
+        
       </div>
     </div>
+  
   );
+ */}
 }
 
 export default City;
