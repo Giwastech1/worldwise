@@ -6,16 +6,16 @@ function CountryList({ cities, isLoading }) {
     if (isLoading) return <Spinner />;
     if (cities.length === 0) return <Message message="you don't have any city on the list, start by clicking a city on the map" />
     const countries = cities.reduce((arr, city) => {
-        if (!arr.map((el) => el.country).includes(city.country)) 
-            return[...arr,{emoji:city.emoji,country:city.country}]
-        
+        if (!arr.map((el) => el.country).includes(city.country)) {
+            return [...arr,{emoji:city.emoji,country:city.country}]
+        }
         else {
-            return arr;
+          return arr;
         }
     },[])
     return (
         <ul className={styles.countryList}>
-            {countries.map((country) => <CountryItem country={country}key={country.country} />)}
+            {countries.map((country) => <CountryItem country={country} key={country.country} />)}
         </ul>
     );
 }

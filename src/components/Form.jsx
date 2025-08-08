@@ -50,7 +50,7 @@ function Form() {
 
       <div className={styles.buttons}>
         <Button type="primary">Add</Button>
-        <Button type={"back"} onClick={(e) => {
+        <Button type="back" onClick={(e) => {
           e.preventDefault();
           navigation(-1);
         }}>&larr; Back</Button>
