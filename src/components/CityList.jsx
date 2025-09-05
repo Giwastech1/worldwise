@@ -2,7 +2,9 @@ import styles from "./CityList.module.css";
 import CityItem from "./CityItem";
 import Spinner from "./Spinner";
 import Message from "./Message";
-function CityList({ cities,isLoading }) {
+import { useCities } from "../context/CitiesContext";
+function CityList() {
+    const { cities, isLoading } = useCities();
     if (isLoading) return <Spinner />;
     if(cities.length===0)return <Message message="you don't have any city on the list, start by clicking a city on the map" />
     return (

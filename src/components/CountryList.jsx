@@ -2,7 +2,9 @@ import styles from "./CountryList.module.css";
 import CountryItem from "./CountryItem";
 import Spinner from "./Spinner";
 import Message from "./Message";
-function CountryList({ cities, isLoading }) {
+import { useCities } from "../context/CitiesContext";
+function CountryList() {
+    const { cities, isLoading } = useCities();
     if (isLoading) return <Spinner />;
     if (cities.length === 0) return <Message message="you don't have any city on the list, start by clicking a city on the map" />
     const countries = cities.reduce((arr, city) => {

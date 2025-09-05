@@ -26,7 +26,7 @@ function App() {
             <Route path="countries" element={<CountryList />} />
             <Route path="form" element={<Form />} />
           </Route>
-          <Route path="login" element={<Login />}></Route>
+          <Route path="login" element={<Login />}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

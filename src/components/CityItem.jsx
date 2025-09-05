@@ -9,7 +9,6 @@ function getFlagUrlFromEmoji(emoji) {
   const countryCode = emojiToCountryCode(emoji);
   return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
 }
-
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",

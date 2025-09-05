@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 const Base_URL = "http://localhost:9000"
 const citiesContext = createContext();
 function CityProvider({children}) {
@@ -28,4 +28,11 @@ function CityProvider({children}) {
         </citiesContext.Provider>
     );
 }
-export { CityProvider };
+function useCities() {
+    const context = useContext(citiesContext);
+    if (context === undefined) {
+        throw new Error("citiesContext was used outsite the CityProvider");
+    }
+    return context;
+}
+export { CityProvider, useCities};
