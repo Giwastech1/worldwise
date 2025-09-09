@@ -19,7 +19,7 @@ function Map() {
                 />
                 {cities.map((city) => <Marker position={[city.position.lat, city.position.lng]}>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        <span>{city.cityName}</span>
                     </Popup>
                 </Marker>)}
             </MapContainer>
