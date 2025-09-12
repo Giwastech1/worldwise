@@ -3,7 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvent } from "rea
 import styles from "./Map.module.css";
 import { useEffect, useState } from "react";
 import { useCities } from "../context/CitiesContext";
-
+import { useGeoLocation } from "../hooks/useGeoLocation";
+import Button from "./Button";
     
 function Map() {
     const [mapPosition, setMapPosition] = useState([40, 0]);
@@ -11,6 +12,11 @@ function Map() {
     const mapLat = searchParam.get("lat");
     const mapLng = searchParam.get("lng");
     const { cities } = useCities();
+    const {
+        isLoading: isLoadingPosition,
+        position: useGeoLocationPosition,
+        getPosition
+    } = useGeoLocation();
 
     useEffect(function () {
         if (mapLat && mapLng) {
@@ -19,6 +25,9 @@ function Map() {
     }, [mapLat, mapLng]);
     return (
         <div className={styles.mapContainer}>
+            <Button type="position" onClick={getPosition}>
+                {isLoadingPosition? "Loading...":"Use your position"}
+            </Button>
             <MapContainer center={mapPosition} zoom={6} scrollWheelZoom={true} className={styles.map} >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
