@@ -5,29 +5,35 @@ import { useEffect, useState } from "react";
 import { useCities } from "../context/CitiesContext";
 import { useGeoLocation } from "../hooks/useGeoLocation";
 import Button from "./Button";
+import {useUrlPosition}  from "../hooks/useUrlPosition";
     
 function Map() {
     const [mapPosition, setMapPosition] = useState([40, 0]);
-    const [searchParam] = useSearchParams();
-    const mapLat = searchParam.get("lat");
-    const mapLng = searchParam.get("lng");
+    const [ lat, lng ] = useUrlPosition();
     const { cities } = useCities();
     const {
         isLoading: isLoadingPosition,
-        position: useGeoLocationPosition,
+        position: geoLocationPosition,
         getPosition
     } = useGeoLocation();
 
     useEffect(function () {
-        if (mapLat && mapLng) {
-            setMapPosition([mapLat, mapLng])
+        if (lat && lng) {
+            setMapPosition([lat,lng])
         }
-    }, [mapLat, mapLng]);
+    }, [lat, lng]);
+
+    useEffect(function () {
+        if(geoLocationPosition)
+        setMapPosition([geoLocationPosition.lat,geoLocationPosition.lng])
+    },[geoLocationPosition])
     return (
         <div className={styles.mapContainer}>
-            <Button type="position" onClick={getPosition}>
-                {isLoadingPosition? "Loading...":"Use your position"}
-            </Button>
+            {!geoLocationPosition && (
+                <Button type="position" onClick={getPosition}>
+                    {isLoadingPosition ? "Loading..." : "Use your position"}
+                </Button>
+            )}
             <MapContainer center={mapPosition} zoom={6} scrollWheelZoom={true} className={styles.map} >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

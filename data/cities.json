@@ -1,6 +1,6 @@
 {
   "cities": [
-     {
+    {
       "cityName": "Lisbon",
       "country": "Portugal",
       "emoji": "🇵🇹",
@@ -35,6 +35,42 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "La Joyosa",
+      "country": "Spain",
+      "date": "2025-09-19T23:36:29.855Z",
+      "emoji": "🇪🇸",
+      "notes": "hii",
+      "position": {
+        "lat": "41.73852846935917",
+        "lng": "-1.0546875000000002"
+      },
+      "id": 98443198
+    },
+    {
+      "cityName": "El Manzano",
+      "country": "Spain",
+      "date": "2025-09-19T23:37:03.013Z",
+      "emoji": "🇪🇸",
+      "notes": "amazing",
+      "position": {
+        "lat": "41.178653972331674",
+        "lng": "-6.306152343750001"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "El Manzano",
+      "country": "Spain",
+      "date": "2025-09-19T23:37:03.013Z",
+      "emoji": "🇪🇸",
+      "notes": "amazingk",
+      "position": {
+        "lat": "41.178653972331674",
+        "lng": "-6.306152343750001"
+      },
+      "id": 98443200
     }
   ]
 }
