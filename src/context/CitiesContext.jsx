@@ -52,9 +52,19 @@ function CityProvider({children}) {
         }
         setIsLoading(false);
     } 
-    function handleDeleteCity(id) {
-        setCities((cities) => cities.filter((city) => city.id !== id));
-    }
+    async function handleDeleteCity(id) {
+        try {
+            setIsLoading(true);
+            await fetch(`${Base_URL}/cities/${id}`, {
+                method: "DELETE"
+            });
+            setCities((cities) => cities.filter((city) => city.id !== id));
+        }
+        catch {
+            alert("Error occured while deleting city");
+        }
+        setIsLoading(false);
+    } 
     return (
         <citiesContext.Provider value={{
             cities,
