@@ -37,40 +37,28 @@
       "id": 98443197
     },
     {
-      "cityName": "La Joyosa",
+      "cityName": "Torrecampo",
       "country": "Spain",
-      "date": "2025-09-19T23:36:29.855Z",
+      "date": "2025-09-23T14:16:01.486Z",
       "emoji": "🇪🇸",
-      "notes": "hii",
+      "notes": "kkk",
       "position": {
-        "lat": "41.73852846935917",
-        "lng": "-1.0546875000000002"
+        "lat": "38.47939467327645",
+        "lng": "-4.570312500000001"
       },
       "id": 98443198
     },
     {
-      "cityName": "El Manzano",
+      "cityName": "Valdeconcha",
       "country": "Spain",
-      "date": "2025-09-19T23:37:03.013Z",
+      "date": "2025-09-23T14:48:50.316Z",
       "emoji": "🇪🇸",
-      "notes": "amazing",
+      "notes": "Awesome",
       "position": {
-        "lat": "41.178653972331674",
-        "lng": "-6.306152343750001"
+        "lat": "40.463666324587685",
+        "lng": "-2.8564453125000004"
       },
       "id": 98443199
-    },
-    {
-      "cityName": "El Manzano",
-      "country": "Spain",
-      "date": "2025-09-19T23:37:03.013Z",
-      "emoji": "🇪🇸",
-      "notes": "amazingk",
-      "position": {
-        "lat": "41.178653972331674",
-        "lng": "-6.306152343750001"
-      },
-      "id": 98443200
     }
   ]
 }

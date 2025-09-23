@@ -53,7 +53,7 @@ function CityProvider({children}) {
         setIsLoading(false);
     } 
     function handleDeleteCity(id) {
-        setCities((cities)=>cities.filter((city)=>city.id!==id))
+        setCities((cities) => cities.filter((city) => city.id !== id));
     }
     return (
         <citiesContext.Provider value={{

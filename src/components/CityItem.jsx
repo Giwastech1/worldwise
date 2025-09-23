@@ -20,8 +20,9 @@ function CityItem({ city }) {
   const { cityName, emoji, date, id, position } = city;
   const { currentCity, handleDeleteCity } = useCities();
   return (
+  
     <li>
-      <Link to={`${id}?lat=${position.lat}&lng=${position.lng}`} className={`${styles.cityItem} ${id === currentCity.id ? styles["cityItem--active"]:""}`}>
+      <Link to={`${id}?lat=${position.lat}&lng=${position.lng}`} className={`${styles.cityItem} ${id === currentCity.id ? styles["cityItem--active"] : ""}`}>
         <span className={styles.emoji}>
           <img
             src={getFlagUrlFromEmoji(emoji)}
@@ -31,7 +32,7 @@ function CityItem({ city }) {
         </span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>({formatDate(date)})</time>
-        <button className={styles.deleteBtn} onClick={()=>handleDeleteCity(id)}>&times;</button>
+        <button className={styles.deleteBtn} onClick={() => handleDeleteCity(id)}>&times;</button>
       </Link>
     </li>
   );
