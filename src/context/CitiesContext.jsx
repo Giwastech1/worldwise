@@ -71,6 +71,7 @@ function CityProvider({ children }) {
     }, []);
 
     async function getCity(id) {
+        if (Number(id) === currentCity.id) return;
         dispatch({ type: "loading" });
         try {
             const response = await fetch(`${Base_URL}/cities/${id}`);
