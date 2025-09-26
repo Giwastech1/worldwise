@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { createContext, useContext, useEffect, useReducer} from "react";
 const Base_URL = "http://localhost:9000"
 const citiesContext = createContext();
 const initialState = {
@@ -15,35 +15,34 @@ function reducer(state, action) {
         case "cities/loaded":
             return {
                 ...state,
-                cities: action.payLoad,
+                cities: action.payload,
                 isLoading: false
             };
         case "city/loaded":
             return {
                 ...state,
-                currentCity: action.payLoad,
+                currentCity: action.payload,
                 isLoading: false
             };
 
-        case "cities/created":
+        case "city/created":
             return {
                 ...state,
                 isLoading: false,
-                cities: [...state.cities, action.payLoad]
+                cities: [...state.cities, action.payload]
             };
             
-        case "cities/deleted":
+        case "city/deleted":
             return {
                 ...state,
                 isLoading: false,
-                cities: state.cities.filter((city) => city.id !== action, payLoad)
+                cities: state.cities.filter((city) => city.id !== action.payload)
             };
 
         case "rejected":
-            return { ...state, isLoading: false, error: action.payLoad };
-            
+            return { ...state, isLoading: false, error: action.payload };
         default:
-            throw new Error("Action unknown")
+            throw new Error("unknown action");
     }
 }
 
@@ -59,12 +58,12 @@ function CityProvider({ children }) {
             try {
                 const response = await fetch(`${Base_URL}/cities`);
                 const data = await response.json();
-                dispatch({ type: "cities/loaded", payLoad: data });
+                dispatch({ type: "cities/loaded", payload: data });
             }
             catch {
                 dispatch({
                     type: "rejected",
-                    payLoad: "Error occured while fetching cities"
+                    payload: "Error occured while fetching cities"
                 });
             }
         }
@@ -76,12 +75,12 @@ function CityProvider({ children }) {
         try {
             const response = await fetch(`${Base_URL}/cities/${id}`);
             const data = await response.json();
-            dispatch({ type: "city/loaded", payLoad: data });
+            dispatch({ type: "city/loaded", payload: data });
         }
         catch {
             dispatch({
                 type: "rejected",
-                payLoad: "Error occured while loading city"
+                payload: "Error occured while loading city"
             });
         }
     }
@@ -98,12 +97,12 @@ function CityProvider({ children }) {
             });
             const data = await response.json();
             {/* setCities((cities) => [...cities, data]); */ }
-            dispatch({ type: "createCity", payLoad: data });
+            dispatch({ type: "city/created", payload: data });
         }
         catch {
             dispatch({
                 type: "rejected",
-                payLoad: "Error occured while creating city"
+                payload: "Error occured while creating city"
             });
         }
     } 
@@ -114,12 +113,12 @@ function CityProvider({ children }) {
                 method: "DELETE"
             });
             {/* setCities((cities) => cities.filter((city) => city.id !== id)); */ }
-            dispatch({ type: "city/deleted", payLoad: id });
+            dispatch({ type: "city/deleted", payload: id });
         }
         catch {
             dispatch({
                 type: "rejected",
-                payLoad: "Error occured while deleting city"
+                payload: "Error occured while deleting city"
             });
         }
     } 
