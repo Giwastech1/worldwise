@@ -1,42 +1,94 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 const Base_URL = "http://localhost:9000"
 const citiesContext = createContext();
-function CityProvider({children}) {
-    const [cities, setCities] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentCity, setCurrentCity] = useState({});
+const initialState = {
+    cities: [],
+    isLoading: false,
+    currentCity: {},
+    error:""
+}
+function reducer(state, action) {
+    switch (action.type) {
+        case "loading":
+            return { ...state, isLoading: true };
+
+        case "cities/loaded":
+            return {
+                ...state,
+                cities: action.payLoad,
+                isLoading: false
+            };
+        case "city/loaded":
+            return {
+                ...state,
+                currentCity: action.payLoad,
+                isLoading: false
+            };
+
+        case "cities/created":
+            return {
+                ...state,
+                isLoading: false,
+                cities: [...state.cities, action.payLoad]
+            };
+            
+        case "cities/deleted":
+            return {
+                ...state,
+                isLoading: false,
+                cities: state.cities.filter((city) => city.id !== action, payLoad)
+            };
+
+        case "rejected":
+            return { ...state, isLoading: false, error: action.payLoad };
+            
+        default:
+            throw new Error("Action unknown")
+    }
+}
+
+function CityProvider({ children }) {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const { isLoading, cities, currentCity } = state;
+    //const [cities, setCities] = useState([]);
+   // const [isLoading, setIsLoading] = useState(false);
+    //const [currentCity, setCurrentCity] = useState({});
     useEffect(function () {
         async function getCities() {
+            dispatch({ type: "loading" });
             try {
-                setIsLoading(true);
                 const response = await fetch(`${Base_URL}/cities`);
                 const data = await response.json();
-                setCities(data);
+                dispatch({ type: "cities/loaded", payLoad: data });
             }
             catch {
-                alert("Error occured while fetching data");
+                dispatch({
+                    type: "rejected",
+                    payLoad: "Error occured while fetching cities"
+                });
             }
-            setIsLoading(false);
         }
         getCities();
     }, []);
 
     async function getCity(id) {
+        dispatch({ type: "loading" });
         try {
-            setIsLoading(true);
             const response = await fetch(`${Base_URL}/cities/${id}`);
             const data = await response.json();
-            setCurrentCity(data);
+            dispatch({ type: "city/loaded", payLoad: data });
         }
         catch {
-            alert("Error occured while fetching data");
+            dispatch({
+                type: "rejected",
+                payLoad: "Error occured while loading city"
+            });
         }
-        setIsLoading(false);
     }
 
     async function createCity(newCity) {
+        dispatch({ type: "loading" });
         try {
-            setIsLoading(true);
             const response = await fetch(`${Base_URL}/cities`, {
                 method: "POST",
                 body: JSON.stringify(newCity),
@@ -45,25 +97,31 @@ function CityProvider({children}) {
                 },
             });
             const data = await response.json();
-            setCities((cities)=>[...cities, data]);
+            {/* setCities((cities) => [...cities, data]); */ }
+            dispatch({ type: "createCity", payLoad: data });
         }
         catch {
-            alert("Error occured while fetching data");
+            dispatch({
+                type: "rejected",
+                payLoad: "Error occured while creating city"
+            });
         }
-        setIsLoading(false);
     } 
     async function handleDeleteCity(id) {
+        dispatch({ type: "loading" });
         try {
-            setIsLoading(true);
             await fetch(`${Base_URL}/cities/${id}`, {
                 method: "DELETE"
             });
-            setCities((cities) => cities.filter((city) => city.id !== id));
+            {/* setCities((cities) => cities.filter((city) => city.id !== id)); */ }
+            dispatch({ type: "city/deleted", payLoad: id });
         }
         catch {
-            alert("Error occured while deleting city");
+            dispatch({
+                type: "rejected",
+                payLoad: "Error occured while deleting city"
+            });
         }
-        setIsLoading(false);
     } 
     return (
         <citiesContext.Provider value={{
