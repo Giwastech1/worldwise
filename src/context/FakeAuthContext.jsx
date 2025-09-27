@@ -22,10 +22,13 @@ const FAKE_USER = {
     avatar: "https://i.pravatar.cc/100?u=zz",
 };
   
-const [state, dispatch] = useReducer(reducer, initialState);
+
 function AuthProvider({ children }) {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const { user, isAuthenticated } = state;
     function login(email, password) {
-        if (email === FAKE_USER.email && password === FAKE_USER.password) {
+        const isPassedAuth = email === FAKE_USER.email && password === FAKE_USER.password;
+        if (isPassedAuth) {
             dispatch({ type: "login", payload: FAKE_USER});
         }
     }
