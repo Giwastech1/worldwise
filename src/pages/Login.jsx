@@ -4,11 +4,12 @@ import PageNav from "../components/PageNav";
 import { useAuth } from "../context/FakeAuthContext";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
   const [email, setEmail] = useState("jack@example.com");
   const [password, setPassword] = useState("qwerty");
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated} = useAuth();
   const navigation = useNavigate();
   function handleClick(e) {
     e.preventDefault();
