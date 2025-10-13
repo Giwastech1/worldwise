@@ -4,14 +4,16 @@ const authContext = createContext();
 const initialState = {
     user: null,
     isAuthenticated: false,
-    error:""
+    error: ""
 };
 function reducer(state, action) {
     switch (action.type) {
         case "login":
             return { ...state, isAuthenticated: true, user: action.payload};
         case "logout":
-            return { ...state, isAuthenticated: false, user: action.payload};
+            return { ...state, isAuthenticated: false };
+        case "errorLogin":
+            return { ...state, error: action.payload };
         default:
             throw new Error("Action unknown");
     }
@@ -30,6 +32,12 @@ function AuthProvider({ children }) {
         const isPassedAuth = email === FAKE_USER.email && password === FAKE_USER.password;
         if (isPassedAuth) {
             dispatch({ type: "login", payload: FAKE_USER });
+        }
+        else {
+            dispatch({
+                type: "errorLogin",
+                payload: "Email or passoword is incorrect"
+            });
         }
     }
     function logout() {
