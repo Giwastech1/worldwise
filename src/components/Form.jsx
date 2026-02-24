@@ -95,7 +95,7 @@ function Form() {
           onChange={(e) => setNotes(e.target.value)}
           value={notes}
         />
-      </div>
+      </div>   
 
       <div className={styles.buttons}>
         <Button type="primary">Add</Button>
